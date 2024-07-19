@@ -535,9 +535,21 @@ export const Util = {
     };
     imageObj.src = url;
   },
+  /**
+   * rgb转16进制
+   * @param r 
+   * @param g 
+   * @param b 
+   * @returns 
+   */
   _rgbToHex(r: number, g: number, b: number) {
     return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   },
+  /**
+   * 16进制转rgb
+   * @param hex 
+   * @returns 
+   */
   _hexToRgb(hex: string): RGB {
     hex = hex.replace(HASH, EMPTY_STRING);
     var bigint = parseInt(hex, 16);

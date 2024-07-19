@@ -956,6 +956,7 @@ export class HitContext extends Context {
   }
   _fill(shape: Shape) {
     this.save();
+    // 设置隐藏图形的颜色(设置在了canvas的context上)
     this.setAttr('fillStyle', shape.colorKey);
     shape._fillFuncHit(this);
     this.restore();

@@ -28,6 +28,14 @@ var HASH = '#',
    *         |
    * 8 - 7 - 6
    */
+  // 交叉偏移量，当前点、左上角、右上角、右下角、左下角
+  /**
+   * (-1,-1)        (1,-1)
+   * 
+   *         (0,0)
+   * 
+   * (-1,1)         (1,1)
+   */
   INTERSECTION_OFFSETS = [
     { x: 0, y: 0 }, // 0
     { x: -1, y: -1 }, // 2
@@ -356,17 +364,31 @@ export class Layer extends Container<Group | Shape> {
   }
   _getIntersection(pos: Vector2d): { shape?: Shape; antialiased?: boolean } {
     const ratio = this.hitCanvas.pixelRatio;
+    // 获取指定位置 1*1 的像素信息
+    // canvas的getImageData().data 会返回Uint8ClampedArray对象；包含图片的像素信息
+    // 数组包含 4 个值，分别对应该像素的红色（red），绿色（green），蓝色（blue）和 alpha（透明度）值
+    // 如果是getImageData(1,1,2,2) 获取2*2的像素点，数组长度会为16，因为每4个长度代表一个像素点的颜色值; 4*4 = 16
     const p = this.hitCanvas.context.getImageData(
       Math.round(pos.x * ratio),
       Math.round(pos.y * ratio),
       1,
       1
     ).data;
+    // 透明度
     const p3 = p[3];
+
+    /**
+     * 根据像素的透明度判断是否为实心像素或抗锯齿像素。
+     * 如果像素是实心的，则根据颜色值查找对应的形状，并返回该形状；
+     * 如果像素是抗锯齿的，则返回抗锯齿标志为true；如果像素是空的，则返回空对象。
+     */
 
     // fully opaque pixel
     if (p3 === 255) {
+      console.log('p3', p[0], p[1], p[2])
+
       const colorKey = Util._rgbToHex(p[0], p[1], p[2]);
+      console.log('colorKey', colorKey)
       const shape = shapes[HASH + colorKey];
       if (shape) {
         return {

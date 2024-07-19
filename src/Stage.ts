@@ -354,6 +354,7 @@ export class Stage extends Container<Layer> {
    * get visible intersection shape. This is the preferred
    *  method for determining if a point intersects a shape or not
    * nodes with listening set to false will not be detected
+   * 获取交叉图形（当前操作的是哪个图形区域）
    * @method
    * @name Konva.Stage#getIntersection
    * @param {Object} pos
@@ -371,7 +372,7 @@ export class Stage extends Container<Layer> {
       len = layers.length,
       end = len - 1,
       n;
-
+    // 循环当前所有图层，图层再查找自身的图形
     for (n = end; n >= 0; n--) {
       const shape = layers[n].getIntersection(pos);
       if (shape) {
@@ -459,6 +460,7 @@ export class Stage extends Container<Layer> {
     if (!Konva.isBrowser) {
       return;
     }
+    // 事件监听，绑定在外层content上；不是canvas上
     EVENTS.forEach(([event, methodName]) => {
       this.content.addEventListener(
         event,
@@ -820,6 +822,7 @@ export class Stage extends Container<Layer> {
    * });
    */
   setPointersPositions(evt) {
+    // 外层content的位置
     var contentPosition = this._getContentPosition(),
       x: number | null = null,
       y: number | null = null;
@@ -851,6 +854,7 @@ export class Stage extends Container<Layer> {
       );
     } else {
       // mouse events
+      // 获取鼠标在舞台中的位置（鼠标绝对位置-舞台绝对位置）
       x = (evt.clientX - contentPosition.left) / contentPosition.scaleX;
       y = (evt.clientY - contentPosition.top) / contentPosition.scaleY;
       this.pointerPos = {

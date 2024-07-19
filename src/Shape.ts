@@ -210,6 +210,7 @@ export class Shape<
     }
 
     this.colorKey = key;
+    // 记录所有图形的颜色(交叉区域会根据颜色来判断当前选择的是哪个图形)
     shapes[key] = this;
   }
 
@@ -666,6 +667,13 @@ export class Shape<
     context.restore();
     return this;
   }
+  /**
+   * 绘制隐藏元素(浮在图形上面，用户判断当前元素是否鼠标选中)
+   * @param can 
+   * @param top 
+   * @param skipDragCheck 
+   * @returns 
+   */
   drawHit(can?: HitCanvas, top?: Node, skipDragCheck = false) {
     if (!this.shouldDrawHit(top, skipDragCheck)) {
       return this;
@@ -703,6 +711,8 @@ export class Shape<
     const selfCache = this === top;
     if (!selfCache) {
       var o = this.getAbsoluteTransform(top).getMatrix();
+      // transform(水平缩放, 垂直缩放, 水平倾斜, 垂直倾斜, 水平平移, 垂直平移)
+      // transform(1, 0, 0, 1, 50, 50); 
       context.transform(o[0], o[1], o[2], o[3], o[4], o[5]);
     }
     drawFunc.call(this, context, this);

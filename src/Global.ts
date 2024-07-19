@@ -150,6 +150,7 @@ export const Konva = {
 
   /**
    * returns whether or not drag and drop is currently active
+   * 当前是否正在拖动状态（全局状态管理）
    * @method
    * @memberof Konva
    */
