@@ -182,6 +182,7 @@ export class SceneCanvas extends Canvas {
   }
 }
 
+// 命中检测Canvas(离屏渲染)
 export class HitCanvas extends Canvas {
   hitCanvas = true;
   constructor(config: ICanvasConfig = { width: 0, height: 0 }) {

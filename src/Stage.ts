@@ -423,6 +423,7 @@ export class Stage extends Container<Layer> {
     layer.draw();
 
     if (Konva.isBrowser) {
+      // 应用层调用stage.add(layer)时，将canvas添加到content中
       this.content.appendChild(layer.canvas._canvas);
     }
 
@@ -895,6 +896,8 @@ export class Stage extends Container<Layer> {
     };
   }
   _buildDOM() {
+    // 构建场景canvas(用户可见的)、命中canvas(离屏渲染的，用于命中检测的颜色编码图形内容)
+    // 这里的bufferCanvas、bufferHitCanvas都是离屏的，只有layer中的canvas是用户可见的(layer中的hitCanvas也是离屏)
     this.bufferCanvas = new SceneCanvas({
       width: this.width(),
       height: this.height(),

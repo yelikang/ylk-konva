@@ -28,7 +28,7 @@ var HASH = '#',
    *         |
    * 8 - 7 - 6
    */
-  // 交叉偏移量，当前点、左上角、右上角、右下角、左下角
+  // 交叉偏移量，当前点、左上角、右上角、右下角、左下角 (可能某个坐标未命中Shape，多处偏移查询)
   /**
    * (-1,-1)        (1,-1)
    * 
@@ -63,7 +63,9 @@ var HASH = '#',
  */
 
 export class Layer extends Container<Group | Shape> {
+  // 场景canvas
   canvas = new SceneCanvas();
+  // 命中canvas
   hitCanvas = new HitCanvas({
     pixelRatio: 1,
   });
@@ -364,6 +366,7 @@ export class Layer extends Container<Group | Shape> {
   }
   _getIntersection(pos: Vector2d): { shape?: Shape; antialiased?: boolean } {
     const ratio = this.hitCanvas.pixelRatio;
+    // 注意，这里是使用的hitCanvas获取；不是实际绘制的canvas(SceneCanvas)
     // 获取指定位置 1*1 的像素信息
     // canvas的getImageData().data 会返回Uint8ClampedArray对象；包含图片的像素信息
     // 数组包含 4 个值，分别对应该像素的红色（red），绿色（green），蓝色（blue）和 alpha（透明度）值
