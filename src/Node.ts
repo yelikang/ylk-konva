@@ -2284,6 +2284,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
   }
   _requestDraw() {
     if (Konva.autoDrawEnabled) {
+      // 获取图层(图层改变宽度、图层中的子节点改变宽度等属性)、或者Stage(例如改变stage宽度)
       const drawNode = this.getLayer() || this.getStage();
       drawNode?.batchDraw();
     }
@@ -2299,8 +2300,10 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       this.attrs[key] = val;
     }
     if (this._shouldFireChangeEvents) {
+      // 例如手动修改节点的宽, node.width(200) 之后，会调widthChange事件
       this._fireChangeEvent(key, oldVal, val);
     }
+    // 重绘
     this._requestDraw();
   }
   _setComponentAttr(key, component, val) {

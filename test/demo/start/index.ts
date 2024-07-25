@@ -56,5 +56,12 @@ import Konva from '../../../src/index.ts';
         document.body.style.cursor = 'pointer';
       });
 
-      const z= box2.zIndex(2)
-      console.log(z)
+      box2.on('widthChange',()=>{
+        console.log('-=====')
+      })
+
+      setTimeout(()=>{
+        box.zIndex(0)
+        stage.width(1300)
+
+      }, 3000)
