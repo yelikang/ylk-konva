@@ -2284,7 +2284,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
   }
   _requestDraw() {
     if (Konva.autoDrawEnabled) {
-      // 获取图层(图层改变宽度、图层中的子节点改变宽度等属性)、或者Stage(例如改变stage宽度)
+      // 获取图层(图层改变宽度、图层中的子节点改变宽度等属性)、或者Stage(例如改变stage宽度)；决定哪个层级的绘制
       const drawNode = this.getLayer() || this.getStage();
       drawNode?.batchDraw();
     }

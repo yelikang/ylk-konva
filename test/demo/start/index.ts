@@ -61,7 +61,7 @@ import Konva from '../../../src/index.ts';
       })
 
       setTimeout(()=>{
-        box.zIndex(0)
-        stage.width(1300)
+        // box.zIndex(0)
+        // stage.width(1300)
 
       }, 3000)
