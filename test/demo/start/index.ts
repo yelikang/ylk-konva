@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>demo</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0"
-    />
-    <style>
-      *{
-        padding: 0;
-        margin: 0;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="container"></div>
-
-    <script type="module">
-      import Konva from '../../src/index.ts';
+import Konva from '../../../src/index.ts';
 
       var stage = new Konva.Stage({
         container: 'container',
@@ -76,6 +55,3 @@
         console.log('box2')
         document.body.style.cursor = 'pointer';
       });
-    </script>
-  </body>
-</html>

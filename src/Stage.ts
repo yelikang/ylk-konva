@@ -176,6 +176,7 @@ export class Stage extends Container<Layer> {
 
   constructor(config: StageConfig) {
     super(checkNoClip(config));
+    // 构建外层的dom，用来包裹canvas元素；并且绑定交互事件
     this._buildDOM();
     this._bindContentEvents();
     stages.push(this);
