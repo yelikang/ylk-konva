@@ -257,6 +257,9 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
     return this;
   }
   /**
+   *  节点缓存，提高性能
+   *  node.cache();之后，this._cache的Map上会存储CACNE相关的缓存，下次layer/Shape等绘制的之后会_getCanvasCache先获取缓存数据
+   * 
    *  cache node to improve drawing performance, apply filters, or create more accurate
    *  hit regions. For all basic shapes size of cache canvas will be automatically detected.
    *  If you need to cache your custom `Konva.Shape` instance you have to pass shape's bounding box
@@ -538,6 +541,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
     var cacheCanvas = this._getCachedSceneCanvas();
     var ratio = cacheCanvas.pixelRatio;
 
+    // 将缓存的canvas绘制到context上
     context.drawImage(
       cacheCanvas._canvas,
       0,
