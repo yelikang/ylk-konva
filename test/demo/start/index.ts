@@ -48,10 +48,13 @@ import Konva from '../../../src/index.ts';
         strokeWidth: 1,
         draggable: true,
       });
-      // layer.add(box2);
+      layer.add(box2);
 
       // add cursor styling
       box2.on('mouseover', function () {
         console.log('box2')
         document.body.style.cursor = 'pointer';
       });
+
+      const z= box2.zIndex(2)
+      console.log(z)

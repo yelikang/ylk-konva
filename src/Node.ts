@@ -1432,6 +1432,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       Util.warn('Node has no parent. zIndex parameter is ignored.');
       return this;
     }
+    // 层级不能小于0，不能大于当前父容器的子容器数量
     if (zIndex < 0 || zIndex >= this.parent.children.length) {
       Util.warn(
         'Unexpected value ' +
@@ -2780,6 +2781,7 @@ const addGetterSetter = Factory.addGetterSetter;
  *
  * // set index
  * node.zIndex(2);
+ * 装饰器，为Node对象装饰zIndex属性
  */
 addGetterSetter(Node, 'zIndex');
 
