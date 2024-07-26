@@ -2801,7 +2801,7 @@ const addGetterSetter = Factory.addGetterSetter;
  *
  * // set index
  * node.zIndex(2);
- * 装饰器，为Node对象装饰zIndex属性
+ * 装饰器，为Node对象装饰zIndex属性；这种方式可以很好的扩展Node对象的属性，复合开闭原则（面对扩展开放，面对修改关闭）
  */
 addGetterSetter(Node, 'zIndex');
 
