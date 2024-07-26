@@ -110,6 +110,7 @@ export abstract class Container<
   }
   abstract _validateAdd(node: Node): void;
   /**
+   * Container添加图形(layer.add、group.add)
    * add a child and children into container
    * @name Konva.Container#add
    * @method
@@ -140,6 +141,7 @@ export abstract class Container<
     }
     this._validateAdd(child);
     child.index = this.getChildren().length;
+    // 子节点的父节点指向当前内容
     child.parent = this;
     child._clearCaches();
     this.getChildren().push(child);
@@ -427,7 +429,7 @@ export abstract class Container<
       context.save();
       context._applyGlobalCompositeOperation(this);
     }
-
+    // 循环绘制子节点
     this.children?.forEach(function (child) {
       child[drawMethod](canvas, top, bufferCanvas);
     });

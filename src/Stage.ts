@@ -421,6 +421,7 @@ export class Stage extends Container<Layer> {
     layer.setSize({ width: this.width(), height: this.height() });
 
     // draw layer and append canvas to container
+    // 图层绘制，并添加canvas (先绘制，再添加)
     layer.draw();
 
     if (Konva.isBrowser) {

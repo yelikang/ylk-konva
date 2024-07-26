@@ -22,6 +22,11 @@ import Konva from '../../../src/index.ts';
         stroke: 'black',
         strokeWidth: 20,
         draggable: true,
+        // 自定义图形绘制方法
+        // sceneFunc:(context)=>{
+        //   console.log(6)
+        //   context._context.fillRect(0,0, 100,100)
+        // }
       });
       layer.add(box);
 
@@ -36,32 +41,34 @@ import Konva from '../../../src/index.ts';
 
 
 
-      var box2 = new Konva.Rect({
-        x: 80,
-        y: 50,
-        width: 100,
-        height: 50,
-        // 填充色
-        fill: 'red',
-        // 边框
-        stroke: 'black',
-        strokeWidth: 1,
-        draggable: true,
-      });
-      layer.add(box2);
+      // var box2 = new Konva.Rect({
+      //   x: 80,
+      //   y: 50,
+      //   width: 100,
+      //   height: 50,
+      //   // 填充色
+      //   fill: 'red',
+      //   // 边框
+      //   stroke: 'black',
+      //   strokeWidth: 1,
+      //   draggable: true,
+      // });
 
-      // add cursor styling
-      box2.on('mouseover', function () {
-        console.log('box2')
-        document.body.style.cursor = 'pointer';
-      });
+      // layer.add(box2);
 
-      box2.on('widthChange',()=>{
-        console.log('-=====')
-      })
+      // // add cursor styling
+      // box2.on('mouseover', function () {
+      //   console.log('box2')
+      //   document.body.style.cursor = 'pointer';
+      // });
 
-      setTimeout(()=>{
-        // box.zIndex(0)
-        // stage.width(1300)
+      // box2.on('widthChange',()=>{
+      //   console.log('-=====')
+      // })
 
-      }, 3000)
+      // box2.cache()
+
+      // setTimeout(()=>{
+      //   // box.zIndex(0)
+      //   box2.width(300)
+      // }, 3000)

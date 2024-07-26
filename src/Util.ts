@@ -425,7 +425,7 @@ var OBJECT_ARRAY = '[object Array]',
   },
   RGB_REGEX = /rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/,
   animQueue: Array<Function> = [];
-
+// 异步队列
 const req =
   (typeof requestAnimationFrame !== 'undefined' && requestAnimationFrame) ||
   function (f) {
