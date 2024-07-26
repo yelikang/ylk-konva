@@ -12,8 +12,8 @@ import Konva from '../../../src/index.ts';
 
       // create shape
       var box = new Konva.Rect({
-        x: 50,
-        y: 50,
+        x: 0,
+        y: 0,
         width: 90,
         height: 50,
         // 填充色
@@ -33,7 +33,33 @@ import Konva from '../../../src/index.ts';
         //   context._context.fillRect(0,0, 100,100)
         // }
       });
-      layer.add(box);
+
+
+        var box2 = new Konva.Rect({
+        x: 80,
+        y: 50,
+        width: 100,
+        height: 50,
+        // 填充色
+        fill: 'red',
+        // 边框
+        stroke: 'black',
+        strokeWidth: 1,
+      });
+
+      var group = new Konva.Group({
+        x: 100,
+        y: 100,
+        width: 10,
+        height: 50,
+        draggable: true,
+
+      });
+      group.add(box)
+      group.add(box2)
+
+
+      layer.add(group);
 
       // add cursor styling
       box.on('mouseover', function () {

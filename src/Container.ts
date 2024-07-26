@@ -139,11 +139,13 @@ export abstract class Container<
       child.moveTo(this);
       return this;
     }
+    // 容器添加子节点时，校验节点是否合理（layer只能添加Group、Shape）；Group只能添加Group、Shape
     this._validateAdd(child);
     child.index = this.getChildren().length;
     // 子节点的父节点指向当前内容
     child.parent = this;
     child._clearCaches();
+    // 父节点children中添加子节点
     this.getChildren().push(child);
     this._fire('add', {
       child: child,
@@ -430,6 +432,7 @@ export abstract class Container<
       context._applyGlobalCompositeOperation(this);
     }
     // 循环绘制子节点
+    // Group为什么不绘制：stage、layer、group都属于Container,layer中添加了group,在循环layer的group绘制时，也只是循环调用Container的_drawChildren方法，来绘制Group Children中的Shape
     this.children?.forEach(function (child) {
       child[drawMethod](canvas, top, bufferCanvas);
     });
