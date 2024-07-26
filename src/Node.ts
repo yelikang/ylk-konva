@@ -2425,6 +2425,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       stage._getPointerById(pointerId) ||
       stage._changedPointerPositions[0] ||
       ap;
+    // 创建拖拽元素，并加入到DD._dragElements中；然后再DragAdnDrop中处理
     DD._dragElements.set(this._id, {
       node: this,
       startPointerPos: pos,
@@ -2459,7 +2460,12 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       bubbleEvent
     );
   }
-
+  /**
+   * 设置节点的拖拽位置，然后重新绘制
+   * @param evt 
+   * @param elem 
+   * @returns 
+   */
   _setDragPosition(evt, elem) {
     // const pointers = this.getStage().getPointersPositions();
     // const pos = pointers.find(p => p.id === this._dragEventId);
@@ -2473,6 +2479,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       y: pos.y - elem.offset.y,
     };
 
+    // 自定义拖拽过程中的函数
     var dbf = this.dragBoundFunc();
     if (dbf !== undefined) {
       const bounded = dbf.call(this, newNodePos, evt);
@@ -2490,7 +2497,9 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
       this._lastPos.x !== newNodePos.x ||
       this._lastPos.y !== newNodePos.y
     ) {
+      // 设置新的位置，及相关位置属性
       this.setAbsolutePosition(newNodePos);
+      // 重新绘制
       this._requestDraw();
     }
 
@@ -2512,6 +2521,8 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
   }
 
   setDraggable(draggable) {
+    // 属性带有draggable，在setAttrs中循环设置属性的时候，会调用这里的setDraggable
+    // dragChage -> _listenDrag -> _createDragElement -> DD._dragElements.set -> DragAndDrop中处理 -> node._setDragPosition -> node._requestDraw();
     this._setAttr('draggable', draggable);
     this._dragChange();
   }
@@ -2529,6 +2540,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
   _listenDrag() {
     this._dragCleanup();
 
+    // 监听konva全局的mousedown事件
     this.on('mousedown.konva touchstart.konva', function (evt) {
       var shouldCheckButton = evt.evt['button'] !== undefined;
       var canDrag =
@@ -2555,6 +2567,7 @@ export abstract class Node<Config extends NodeConfig = NodeConfig> {
   }
 
   _dragChange() {
+    // 如果元素有draggable属性，则监听拖拽事件
     if (this.attrs.draggable) {
       this._listenDrag();
     } else {

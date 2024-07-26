@@ -4,6 +4,7 @@ import { Node } from './Node';
 import { Vector2d } from './types';
 import { Util } from './Util';
 
+// DD: DragDrop
 export const DD = {
   get isDragging() {
     var flag = false;
@@ -53,6 +54,7 @@ export const DD = {
       if (elem.pointerId === undefined) {
         elem.pointerId = Util._getFirstPointerId(evt);
       }
+      // 获取当前鼠标的位置
       const pos = stage._changedPointerPositions.find(
         (pos) => pos.id === elem.pointerId
       );
@@ -76,6 +78,7 @@ export const DD = {
           return;
         }
       }
+      // 设置节点的拖拽位置
       node._setDragPosition(evt, elem);
       nodesToFireEvents.push(node);
     });

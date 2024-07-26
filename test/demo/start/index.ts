@@ -22,6 +22,11 @@ import Konva from '../../../src/index.ts';
         stroke: 'black',
         strokeWidth: 20,
         draggable: true,
+        // 自定义拖拽方法，返回新的坐标位置
+        // dragBoundFunc:(pos)=>{
+        //   console.log('====')
+        //   return pos
+        // }
         // 自定义图形绘制方法
         // sceneFunc:(context)=>{
         //   console.log(6)

@@ -546,9 +546,11 @@ export class Stage extends Container<Layer> {
     if (!events) {
       return;
     }
+    // 记录当前鼠标的位置，会记录在_changedPointerPositions数组上
     this.setPointersPositions(evt);
 
     var triggeredOnShape = false;
+    // 获取当前鼠标位置，并通过getIntersection获取当前交叉图形，激活图形绑定的对应方法
     this._changedPointerPositions.forEach((pos) => {
       var shape = this.getIntersection(pos);
       DD.justDragged = false;
